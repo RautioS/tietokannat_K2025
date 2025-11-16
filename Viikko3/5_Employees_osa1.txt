@@ -1,0 +1,15 @@
+5.Employees, osa1
+
+a) SELECT dept_name FROM departments;
+
+b) SELECT DISTINCT title FROM titles;
+
+c) SELECT MAX(salary) as 'Isoin palkka',MIN(salary) AS 'Pienin palkka' FROM salaries;
+
+d) SELECT AVG(salary) AS 'keskiarvo' FROM salaries;
+
+e) SELECT * FROM employees WHERE last_name = 'Facello';
+
+f) SELECT COUNT(birth_date) FROM employees WHERE birth_date BETWEEN '1950-01-01' AND '1959-12-31';
+
+g) SELECT gender,count(*) FROM employees GROUP BY gender;

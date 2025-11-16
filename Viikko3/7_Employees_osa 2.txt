@@ -1,0 +1,34 @@
+7: Employees osa 2
+
+a) SELECT first_name, last_name FROM employees ORDER BY last_name LIMIT 10;
+
+b) SELECT first_name, last_name FROM employees ORDER BY last_name, first_name LIMIT 10;
+
+c) SELECT first_name, last_name, hire_date FROM employees ORDER BY hire_date DESC LIMIT 5;
+
+d) SELECT first_name, last_name, salary FROM employees JOIN salaries ON employees.emp_no=salaries.emp_no WHERE salary = (SELECT MAX(salary) FROM salaries);
+
+e) SELECT first_name, last_name, salary FROM employees JOIN salaries ON employees.emp_no=salaries.emp_no WHERE salary = (SELECT MIN(salary) FROM salaries);
+
+f) SELECT first_name, last_name, salary FROM employees JOIN salaries ON employees.emp_no=salaries.emp_no WHERE salary > 150000;
+
+g) SELECT COUNT(*) AS Sales_employees
+FROM employees e
+JOIN dept_emp de ON e.emp_no = de.emp_no
+JOIN departments d ON de.dept_no = d.dept_no
+WHERE d.dept_name = 'Sales';
+
+SELECT COUNT(*) AS Marketing_employees
+FROM employees e
+JOIN dept_emp de ON e.emp_no = de.emp_no
+JOIN departments d ON de.dept_no = d.dept_no
+WHERE d.dept_name = 'Marketing';
+
+h) SELECT first_name, last_name, dept_name
+   FROM employees
+   JOIN dept_manager ON employees.emp_no = dept_manager.emp_no
+   JOIN departments ON dept_manager.dept_no = departments.dept_no;
+
+i) SELECT AVG(salary) AS 'Keskipalkka' FROM salaries s JOIN dept_emp de ON s.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE dept_name = 'Sales';
+
+SELECT AVG(salary) AS 'Keskipalkka' FROM salaries s JOIN dept_emp de ON s.emp_no = de.emp_no JOIN departments d ON de.dept_no = d.dept_no WHERE dept_name = 'Marketing';

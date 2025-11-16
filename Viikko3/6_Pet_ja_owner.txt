@@ -1,0 +1,58 @@
+CREATE TABLE owner
+    -> (
+    -> first_name varchar(255),
+    -> last_name varchar(255),
+    -> address varchar(255),
+    -> ownerID int PRIMARY KEY AUTO_INCREMENT
+    -> );
+
+ desc owner;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| first_name | varchar(255) | YES  |     | NULL    |                |
+| last_name  | varchar(255) | YES  |     | NULL    |                |
+| address    | varchar(255) | YES  |     | NULL    |                |
+| ownerID    | int          | NO   | PRI | NULL    | auto_increment |
++------------+--------------+------+-----+---------+----------------+
+
+ALTER TABLE PET DROP COLUMN owner;
+ALTER TABLE pet ADD COLUMN petID INT PRIMARY KEY AUTO_INCREMENT;
+ALTER TABLE pet ADD COLUMN ownerID INT;
+ALTER TABLE pet ADD CONSTRAINT FOREIGN KEY(ownerID) REFERENCES owner(ownerID);
+
+desc pet;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| name    | varchar(20) | YES  |     | NULL    |                |
+| species | varchar(20) | YES  |     | NULL    |                |
+| sex     | char(1)     | YES  |     | NULL    |                |
+| birth   | date        | YES  |     | NULL    |                |
+| death   | date        | YES  |     | NULL    |                |
+| petID   | int         | NO   | PRI | NULL    | auto_increment |
+| ownerID | int         | YES  | MUL | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+
+INSERT INTO owner VALUES ( 'Harold','Lloyd','Someaddress 1',NULL);
+INSERT INTO owner VALUES ( 'Gwen','Stefani','Someaddress 2',NULL);
+jne....
+#En kaikkia tietojen syöttöjä laita sillä idea pitäis näillä tulla selväksi.
+
+select * from owner join pet on owner.ownerID = pet.ownerID;
++------------+-----------+---------------+---------+----------+---------+------+------------+------------+-------+---------+
+| first_name | last_name | address       | ownerID | name     | species | sex  | birth      | death      | petID | ownerID |
++------------+-----------+---------------+---------+----------+---------+------+------------+------------+-------+---------+
+| Harold     | Lloyd     | Someaddress 1 |       1 | Fluffy   | cat     | f    | 1993-02-04 | NULL       |     1 |       1 |
+| Gwen       | Stefani   | Someaddress 2 |       2 | Claws    | cat     | m    | 1994-03-17 | NULL       |     2 |       2 |
+| Harold     | Lloyd     | Someaddress 1 |       1 | Buffy    | dog     | f    | 1989-05-13 | NULL       |     3 |       1 |
+| Benny      | Hill      | Someaddress 3 |       3 | Fang     | dog     | m    | 1990-08-27 | NULL       |     4 |       3 |
+| Diane      | Keaton    | Someaddress 4 |       4 | Bowser   | dog     | m    | 1998-08-31 | 1995-07-29 |     5 |       4 |
+| Gwen       | Stefani   | Someaddress 2 |       2 | Chirpy   | bird    | f    | 1998-09-11 | 2000-09-15 |     6 |       2 |
+| Gwen       | Stefani   | Someaddress 2 |       2 | Whistler | bird    | NULL | 1997-12-09 | NULL       |     7 |       2 |
+| Benny      | Hill      | Someaddress 3 |       3 | Slim     | snake   | m    | 1996-04-29 | NULL       |     8 |       3 |
++------------+-----------+---------------+---------+----------+---------+------+------------+------------+-------+---------+
+
+
+
+

@@ -1,0 +1,16 @@
+
+8: Sakila
+
+a) SELECT name FROM language ORDER by name;
+
+b) SELECT f.title
+FROM film f
+JOIN film_actor fa ON f.film_id = fa.film_id
+JOIN actor a ON fa.actor_id = a.actor_id
+WHERE a.last_name = 'Temple';
+
+c) SELECT first_name, last_name FROM actor a JOIN film_actor fa ON a.actor_id = fa.actor_id JOIN  film f ON fa.film_id = f.film_id WHERE f.title = 'Ghost Groundhog';
+
+d) SELECT count(*) AS 'Kauhuelokuvat' FROM category c JOIN film_category fc ON c.category_id = fc.category_id WHERE c.name = 'Horror';
+
+e) SELECT title FROM film f JOIN film_category fc ON f.film_id = fc.film_id JOIN category c ON c.category_id =  fc.category_id WHERE c.name = 'Horror';
