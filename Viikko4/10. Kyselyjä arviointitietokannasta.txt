@@ -1,0 +1,78 @@
+1) Tulosta kaikki opiskelijat, joilla on tietokannassa hylätty arvosana
+
+mysql> SELECT Etunimi,Sukunimi,Luokkatunnus, Nimi, Arvosana
+       FROM Opiskelija o
+       JOIN Arviointi a ON o.idOpiskelija = a.idOpiskelija
+       JOIN Opintojakso oj ON a.idOpintojakso = oj.idOpintojakso
+       WHERE Arvosana = 0;
++---------+----------+--------------+----------------------------+----------+
+| Etunimi | Sukunimi | Luokkatunnus | Nimi                       | Arvosana |
++---------+----------+--------------+----------------------------+----------+
+| Hessu   | Hopo     | TVT25KMO     | Vektorit ja kompleksiluvut |        0 |
+| Mikki   | Hiiri    | TVT22KMO     | Vektorit ja kompleksiluvut |        0 |
++---------+----------+--------------+----------------------------+----------
+
+2) Tulosta kaikki Vektorit ja kompleksiluvut-kurssin hyväksytysti suorittaneet
+
+SELECT Etunimi, Sukunimi, Nimi AS Kurssi, Arvosana
+FROM opiskelija o
+JOIN arviointi a ON o.idOpiskelija = a.idOpiskelija
+JOIN opintojakso oj ON a.idOpintojakso = oj.idOpintojakso
+WHERE oj.Nimi = 'Vektorit ja kompleksiluvut'
+  AND a.Arvosana BETWEEN 1 AND 5;
+
++---------+----------+----------------------------+----------+
+| Etunimi | Sukunimi | Kurssi                     | Arvosana |
++---------+----------+----------------------------+----------+
+| Aku     | Ankka    | Vektorit ja kompleksiluvut |        4 |
+| Hannu   | Hanhi    | Vektorit ja kompleksiluvut |        3 |
++---------+----------+----------------------------+----------+
+
+3) Mille kursseille Hessu on osallistunut ?
+
+mysql> SELECT Nimi, Tunnus, Etunimi, Sukunimi, Luokkatunnus, Arvosana
+       FROM Opintojakso oj
+       JOIN Arviointi a ON oj.idOpintojakso = a.idOpintojakso
+       JOIN Opiskelija o ON a.idOpiskelija = o.idOpiskelija
+       WHERE Etunimi = 'Hessu';
+
++-----------------------------------------------+----------+---------+----------+--------------+----------+
+| Nimi                                          | Tunnus   | Etunimi | Sukunimi | Luokkatunnus | Arvosana |
++-----------------------------------------------+----------+---------+----------+--------------+----------+
+| Tietokannat ja rajapinnat                     | IN00DL11 | Hessu   | Hopo     | TVT25KMO     |        4 |
+| Olio-ohjelmointi ja oliopohjainen suunnittelu | IN00CS88 | Hessu   | Hopo     | TVT25KMO     |        4 |
+| Linux Administration                          | IN00DU04 | Hessu   | Hopo     | TVT25KMO     |        5 |
+| Vektorit ja kompleksiluvut                    | IN00EP46 | Hessu   | Hopo     | TVT25KMO     |        0 |
++-----------------------------------------------+----------+---------+----------+--------------+----------+
+
+
+4) Mikä on Akun opintosuoritusten keskiarvo ?
+
+mysql> SELECT Etunimi,Sukunimi, AVG(Arvosana) AS Keskiarvo
+       FROM Opiskelija o
+       JOIN Arviointi a ON o.idOpiskelija = a.idOpiskelija
+       WHERE Etunimi = 'Aku'
+       GROUP BY Etunimi, Sukunimi;
++---------+----------+-----------+
+| Etunimi | Sukunimi | Keskiarvo |
++---------+----------+-----------+
+| Aku     | Ankka    |    3.4000 |
++---------+----------+-----------+
+
+
+5) Millä opintojaksoilla ei ole yhtään suoritusmerkintää ? (Vihje: Tarvitset tässä left tai right joinia...)
+
+mysql> SELECT oj.idOpintojakso, oj.Nimi
+       FROM Opintojakso AS oj
+       LEFT JOIN Arviointi AS a ON oj.idOpintojakso = a.idOpintojakso
+       WHERE a.idOpintojakso IS NULL;
+
++---------------+-----------------------------------------+
+| idOpintojakso | Nimi                                    |
++---------------+-----------------------------------------+
+|             7 | Matematiikan perusteet tietotekniikassa |
++---------------+-----------------------------------------+
+
+
+
+

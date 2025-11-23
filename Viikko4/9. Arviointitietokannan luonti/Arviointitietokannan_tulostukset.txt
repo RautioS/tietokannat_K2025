@@ -1,0 +1,53 @@
+mysql> SELECT * FROM Opintojakso;
++---------------+-----------------------------------------------+---------+----------+
+| idOpintojakso | Nimi                                          | Laajuus | Tunnus   |
++---------------+-----------------------------------------------+---------+----------+
+|             1 | Tietokannat ja rajapinnat                     |       5 | IN00DL11 |
+|             2 | Olio-ohjelmointi ja oliopohjainen suunnittelu |       5 | IN00CS88 |
+|             3 | Linux Administration                          |       5 | IN00DU04 |
+|             4 | Fysiikan perusteet tietotekniikassa           |       3 | IN00EH22 |
+|             5 | Työelämän viestintätaidot                     |       3 | YY00DU50 |
+|             6 | Vektorit ja kompleksiluvut                    |       3 | IN00EP46 |
+|             7 | Matematiikan perusteet tietotekniikassa       |       3 | IN00EH18 |
++---------------+-----------------------------------------------+---------+----------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT * FROM Opiskelija;
++--------------+---------+----------+----------+-----------------+
+| idOpiskelija | Etunimi | Sukunimi | Osoite   | Luokkatunnus    |
++--------------+---------+----------+----------+-----------------+
+|            1 | Aku     | Ankka    | TVT25KMO | Paratiisitie 13 |
+|            2 | Roope   | Ankka    | TVT25KMO | Rahasäiliö      |
+|            3 | Iines   | Ankka    | TVT25KMO | Ankkalinna 313  |
+|            4 | Hannu   | Hanhi    | TVT25KMO | Ankkalinna 546  |
+|            5 | Hessu   | Hopo     | TVT25KMO | Ankkalinna 753  |
+|            6 | Mikki   | Hiiri    | TVT24KMO | Ankkalinna 354  |
++--------------+---------+----------+----------+-----------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT Etunimi,Sukunimi,Arvosana,Päivämäärä,nimi FROM Arviointi JOIN Opiskelija ON Opiskelija.idOpiskelija = Arviointi.idOpiskelija JOIN Opintojakso ON Opintojakso.idOpintojakso = Arviointi.idOpintojakso;
++---------+----------+----------+-----------------+-----------------------------------------------+
+| Etunimi | Sukunimi | Arvosana | Päivämäärä      | nimi                                          |
++---------+----------+----------+-----------------+-----------------------------------------------+
+| Aku     | Ankka    |        2 | 2025-11-21      | Tietokannat ja rajapinnat                     |
+| Roope   | Ankka    |        5 | 2025-11-21      | Tietokannat ja rajapinnat                     |
+| Aku     | Ankka    |        4 | 2025-11-21      | Linux Administration                          |
+| Aku     | Ankka    |        2 | 2025-11-21      | Fysiikan perusteet tietotekniikassa           |
+| Aku     | Ankka    |        5 | 2025-11-21      | Työelämän viestintätaidot                     |
+| Aku     | Ankka    |        4 | 2025-11-21      | Vektorit ja kompleksiluvut                    |
+| Roope   | Ankka    |        4 | 2025-11-21      | Olio-ohjelmointi ja oliopohjainen suunnittelu |
+| Roope   | Ankka    |        5 | 2025-11-21      | Linux Administration                          |
+| Iines   | Ankka    |        2 | 2025-11-21      | Tietokannat ja rajapinnat                     |
+| Iines   | Ankka    |        5 | 2025-11-21      | Olio-ohjelmointi ja oliopohjainen suunnittelu |
+| Iines   | Ankka    |        1 | 2025-11-21      | Linux Administration                          |
+| Hannu   | Hanhi    |        3 | 2025-11-21      | Tietokannat ja rajapinnat                     |
+| Hannu   | Hanhi    |        3 | 2025-11-21      | Olio-ohjelmointi ja oliopohjainen suunnittelu |
+| Hannu   | Hanhi    |        4 | 2025-11-21      | Linux Administration                          |
+| Hessu   | Hopo     |        4 | 2025-11-21      | Tietokannat ja rajapinnat                     |
+| Hessu   | Hopo     |        4 | 2025-11-21      | Olio-ohjelmointi ja oliopohjainen suunnittelu |
+| Hessu   | Hopo     |        5 | 2025-11-21      | Linux Administration                          |
+| Mikki   | Hiiri    |        3 | 2025-11-21      | Tietokannat ja rajapinnat                     |
+| Mikki   | Hiiri    |        5 | 2025-11-21      | Olio-ohjelmointi ja oliopohjainen suunnittelu |
+| Mikki   | Hiiri    |        3 | 2025-11-21      | Linux Administration                          |
++---------+----------+----------+-----------------+-----------------------------------------------+
+20 rows in set (0.00 sec)
