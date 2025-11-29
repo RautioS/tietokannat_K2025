@@ -1,0 +1,89 @@
+mysql> DESC kirja;
++---------+-------------+------+-----+---------+----------------+
+| Field   | Type        | Null | Key | Default | Extra          |
++---------+-------------+------+-----+---------+----------------+
+| idKirja | int         | NO   | PRI | NULL    | auto_increment |
+| idTeos  | int         | NO   | MUL | NULL    |                |
+| ISBN    | varchar(45) | NO   | UNI | NULL    |                |
++---------+-------------+------+-----+---------+----------------+
+
+mysql> INSERT INTO kirja VALUES (NULL, 1, '9789511234567');
+
+mysql> INSERT INTO kirja VALUES (NULL, 1, '9789511234568');
+
+mysql> SELECT * FROM kirja;
++---------+--------+---------------+
+| idKirja | idTeos | ISBN          |
++---------+--------+---------------+
+|       1 |      1 | 9789511234567 |
+|       2 |      1 | 9789511234568 |
+|       3 |      2 | 9780441013593 |
+|       4 |      3 | 9780261102385 |
+|       5 |      4 | 9780261102217 |
+|       6 |      5 | 9789510311234 |
+|       7 |      6 | 9780060853983 |
++---------+--------+---------------+
+
+mysql> SELECT * FROM tekija;
++-----------+---------+-----------+
+| idTekijä  | Etunimi | Sukunimi  |
++-----------+---------+-----------+
+|         1 | Väinö   | Linna     |
+|         2 | Frank   | Herbert   |
+|         3 | J.R.R.  | Tolkien   |
+|         4 | Mika    | Waltari   |
+|         5 | Terry   | Pratchett |
+|         6 | Neil    | Gaiman    |
++-----------+---------+-----------+
+
+mysql> SELECT * FROM tekija_teos;
++------------------+-------------+
+| Tekija_idTekijä  | Teos_idTeos |
++------------------+-------------+
+|                1 |           1 |
+|                2 |           2 |
+|                3 |           3 |
+|                3 |           4 |
+|                4 |           5 |
+|                5 |           6 |
+|                6 |           6 |
++------------------+-------------+
+
+mysql> INSERT INTO tekija_teos VALUES (5, 6);
+mysql> INSERT INTO tekija_teos VALUES (6, 6);
+
+
+mysql> SELECT * FROM teos;
++--------+-------------------------+---------------+----------+
+| idTeos | Nimi                    | Julkaisuvuosi | Luokitus |
++--------+-------------------------+---------------+----------+
+|      1 | Tuntematon sotilas      | 1954          | 84.2     |
+|      2 | Dyyni                   | 1965          | 84.5     |
+|      3 | Taru sormusten herrasta | 1954          | 84.1     |
+|      4 | Hobitti                 | 1937          | 84.1     |
+|      5 | Sinuhe egyptiläinen     | 1945          | 84.3     |
+|      6 | Good Omens              | 1990          | 84.0     |
++--------+-------------------------+---------------+----------+
+
+mysql> DESC lainaus;
++-------------+---------+------+-----+---------+----------------+
+| Field       | Type    | Null | Key | Default | Extra          |
++-------------+---------+------+-----+---------+----------------+
+| idLainaus   | int     | NO   | PRI | NULL    | auto_increment |
+| idKirja     | int     | NO   | MUL | NULL    |                |
+| idAsiakas   | int     | NO   | MUL | NULL    |                |
+| LainausPVM  | date    | NO   |     | NULL    |                |
+| PalautusPVM | date    | NO   |     | NULL    |                |
+| Palautettu  | tinyint | NO   |     | NULL    |                |
++-------------+---------+------+-----+---------+----------------+
+
+mysql> INSERT INTO lainaus VALUES(NULL,3,1,CURDATE(),DATE_ADD(CURDATE(),INTERVAL 30 DAY),0);
+mysql> INSERT INTO lainaus VALUES(NULL,1,3,CURDATE(),DATE_ADD(CURDATE(),INTERVAL 30 DAY),0);
+
+mysql> SELECT * FROM lainaus;
++-----------+---------+-----------+------------+-------------+------------+
+| idLainaus | idKirja | idAsiakas | LainausPVM | PalautusPVM | Palautettu |
++-----------+---------+-----------+------------+-------------+------------+
+|         1 |       3 |         1 | 2025-11-29 | 2025-12-29  |          0 |
+|         2 |       1 |         3 | 2025-11-29 | 2025-12-29  |          0 |
++-----------+---------+-----------+------------+-------------+------------+
