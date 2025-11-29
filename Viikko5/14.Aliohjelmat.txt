@@ -1,0 +1,32 @@
+CREATE PROCEDURE `LisaaSuoritus` (
+IN En VARCHAR(45),
+IN Sn VARCHAR(45),
+IN Kk VARCHAR(45),
+IN Arvos Int
+)
+Aliohjelma:BEGIN
+declare OpiskID INT DEFAULT NULL;
+declare OpjaksoID INT DEFAULT NULL;
+
+SELECT idOpiskelija INTO OpiskID FROM Opiskelija WHERE Etunimi=En AND Sukunimi=Sn;
+
+IF OpiskID IS NULL then 
+     SELECT 'Opiskelijaa ei ole';
+     LEAVE Aliohjelma;
+END IF;
+
+SELECT idOpintojakso INTO OpjaksoID FROM Opintojakso WHERE Tunnus=Kk;
+
+IF OpjaksoID IS NULL then 
+     SELECT 'Opintojaksoa ei ole';
+     LEAVE Aliohjelma;
+END IF;
+
+IF Arvos < 1 OR Arvos > 5 then 
+     SELECT 'Arvosana ei kelpaa';
+     LEAVE Aliohjelma;
+END IF;
+
+INSERT INTO Arviointi VALUES(NULL,OpiskID,OpjaksoID, CURDATE(), Arvos);
+
+END
