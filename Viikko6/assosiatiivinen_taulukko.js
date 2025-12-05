@@ -1,7 +1,7 @@
 const bookData=[
-    {'idBook' : 1,'name' : 'Dune','author' : 'Frank Herbert'},
-    {'idBook' : 2,'name' : 'Lord Of The Rings','author' : 'J.R.R. Tolkien'},
-    {'idBook' : 3,'name' : 'Game Of Thornes','author' : 'George R.R. Martin'},
+    {'idBook' : 1,'name' : 'Dune','author' : 'Frank Herbert','isbn' : '978-0-441-17271-9'},
+    {'idBook' : 2,'name' : 'Lord Of The Rings','author' : 'J.R.R. Tolkien','isbn' : '978-0-618-00222-8'},
+    {'idBook' : 3,'name' : 'Game Of Thornes','author' : 'George R.R. Martin','isbn' : '978-0-553-10354-0'},
 ]
 
 
